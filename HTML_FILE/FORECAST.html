@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combined Graph and Weather Forecast</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        body {
+            background-image: url('CLEAR_SKY.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'Roboto', sans-serif;
+        }
+        #graphContainer, dis {display: none;}
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+            color: yellow;
+            font-family: 'Roboto', sans-serif;
+        }
+        input[type="text"], input[type="number"], select, button {
+            width: 130px;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 3px #ccc;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+        }
+        input[type="month"] {
+            width: 150px;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 3px #ccc;
+            background-color: #f8f8f8;
+            cursor: pointer;
+            font-family: 'Roboto', sans-serif;
+        }
+        input[type="text"]:hover, input[type="number"]:hover, input[type="month"]:hover, button:hover, select:hover {
+            background-color: #e9e9e9;
+        }
+        .result {
+            color: yellow;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: justify;
+            font-family: 'Roboto', sans-serif;
+        }
+    </style>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <div id="weatherForecast">
+        <p>&emsp;<a style="text-align:center;FONT-SIZE:15px;font-family: 'Roboto', sans-serif;" href="HOME.html">HOME</a><!--&emsp;&emsp;&emsp;<a style="text-align:center;FONT-SIZE:15px;font-family: 'Roboto', sans-serif;" href="trial_graph.html">GRAPHICAL REPRESENTATION</a>--></p>
+        <h1 style="text-align:center;background-color:yellow;color:green;font-family: 'Roboto', sans-serif;">WEATHER FORECAST </h1>
+        <form id="dataForm">
+            <div style="margin-bottom: 20px;">
+                <label for="MONTH">ENTER MONTH:</label>
+                <input type="month" id="MONTH" name="MONTH" onchange="enableDataEntry()" style="margin-left: 10px; width: 150px; padding: 5px 10px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; box-shadow: 0 2px 3px #ccc; background-color: #f8f8f8; cursor: pointer; font-family: 'Roboto', sans-serif;">
+            </div>
+            <div>
+                <label for="numRows">ENTER NUMBER OF ROWS:</label>
+                <select id="numRows" name="numRows" onchange="enableDataEntry()" style="margin-left: 10px; width: 150px; padding: 5px 10px; margin: 5px; border-radius: 5px; border: 1px solid #ccc; box-shadow: 0 2px 3px #ccc; background-color: #f8f8f8; cursor: pointer; font-family: 'Roboto', sans-serif;">
+                    <option value="">Select Rows</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                </select>
+            </div>
+            <br>
+            <div id="dataEntryPrompt" style="display:none;"><p style="color:red;font-family: 'Roboto', sans-serif;"><b>*ENTER YOUR DATA BELOW</b></p></div>
+            <br>
+            <label for="temperature">Temperature(°C):</label>
+            <input type="number" id="temperature" name="temperature" style="font-family: 'Roboto', sans-serif;" disabled>
+            &emsp;
+            <label for="precipitation">Precipitation:</label>
+            <select id="precipitation" name="precipitation" style="font-family: 'Roboto', sans-serif;" disabled>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            &emsp;
+            <label for="humidity">Humidity(%):</label>
+            <input type="number" id="humidity" name="humidity" style="font-family: 'Roboto', sans-serif;" disabled>
+            &emsp;
+            <label for="windSpeed">Wind Speed(kmph):</label>
+            <input type="number" id="windSpeed" name="windSpeed" style="font-family: 'Roboto', sans-serif;" disabled>
+            &emsp;
+            <button type="button" onclick="addRow()" id="addButton" style="font-family: 'Roboto', sans-serif;">Add to Table</button>
+        </form>
+
+        <br>
+
+        <table id="dataTable">
+            <thead>
+                <tr>
+                    <th>SLNO</th>
+                    <th>TEMPERATURE(°C)</th>
+                    <th>PRECIPITATION</th>
+                    <th>HUMIDITY(%)</th>
+                    <th>WIND SPEED(kmph)</th>
+                    <th>REMOVE</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <br>
+        <button type="button" onclick="calculateStatistics()" style="font-family: 'Roboto', sans-serif;">FORECAST</button>
+        <div id="temperatureResult" class="result"></div>
+        <div id="precipitationResult" class="result"></div>
+        <div id="humidityResult" class="result"></div>
+        <div id="windSpeedResult" class="result"></div>
+        <button type="button" onclick="plotGraph()" style="font-family: 'Roboto', sans-serif;">PLOT GRAPH</button>
+        <br>
+    </div>
+    <div id="graphContainer" style="max-width:500px; margin-top: 20px; text-align: center; font-family: 'Roboto', sans-serif;"><div id="myPlot" style="width:100%;height:500px;"></div></div>
+    <br>
+    <script>
+        var counter = 0;
+        var expectedRows = 0;
+        function enableDataEntry() {
+            var month = document.getElementById("MONTH").value;
+            var numRows = parseInt(document.getElementById("numRows").value);
+            if (month && numRows > 0) { // Check if both month and numRows are valid
+                expectedRows = numRows;
+                document.getElementById("addButton").disabled = false;
+                document.getElementById("dataEntryPrompt").style.display = "block";
+                document.getElementById("temperature").disabled = false;
+                document.getElementById("precipitation").disabled = false;
+                document.getElementById("humidity").disabled = false;
+                document.getElementById("windSpeed").disabled = false;
+            } else {
+                // If month is not selected or numRows is not valid, disable the data entry fields
+                document.getElementById("addButton").disabled = true;
+                document.getElementById("temperature").disabled = true;
+                document.getElementById("precipitation").disabled = true;
+                document.getElementById("humidity").disabled = true;
+                document.getElementById("windSpeed").disabled = true;
+                if (!month) {
+                    alertWithTimeout("Please enter Month first.");
+                } else if (numRows <= 0) {
+                    alertWithTimeout("Please select Number of Rows.");
+                }
+            }
+        }
+
+        function alertWithTimeout(message) {
+            alert(message);
+            setTimeout(function() {
+                document.activeElement.blur(); // Attempt to close alert by removing focus
+            }, 10000); // Close the alert after 10 seconds
+        }
+
+        function addRow() {
+            var month = document.getElementById("MONTH").value;
+            var numRows = parseInt(document.getElementById("numRows").value);
+            if (!month || numRows <= 0) {
+                alertWithTimeout("Please enter Month and Number of Rows first.");
+                return;
+            }
+            if (counter >= numRows) {
+                document.getElementById("addButton").disabled = true;
+            } else {
+                var month = counter + 1;
+                var temperature = parseFloat(document.getElementById("temperature").value);
+                var precipitation = document.getElementById("precipitation").value;
+                var humidity = parseFloat(document.getElementById("humidity").value);
+                var windSpeed = parseFloat(document.getElementById("windSpeed").value);
+                if (!isNaN(temperature) && !isNaN(humidity) && !isNaN(windSpeed)) {
+                    var newRow = document.createElement("tr");
+                    var monthCell = document.createElement("td");
+                    monthCell.textContent = month;
+                    newRow.appendChild(monthCell);
+                    var temperatureCell = document.createElement("td");
+                    temperatureCell.textContent = temperature;
+                    newRow.appendChild(temperatureCell);
+                    var precipitationCell = document.createElement("td");
+                    precipitationCell.textContent = precipitation;
+                    newRow.appendChild(precipitationCell);
+                    var humidityCell = document.createElement("td");
+                    humidityCell.textContent = humidity;
+                    newRow.appendChild(humidityCell);
+                    var windSpeedCell = document.createElement("td");
+                    windSpeedCell.textContent = windSpeed;
+                    newRow.appendChild(windSpeedCell);
+                    counter++;
+                    var removeCell = document.createElement("td");
+                    var removeButton = document.createElement("button");
+                    removeButton.textContent = "Remove";
+                    removeButton.onclick = function() {
+                        removeRow(this);
+                        document.getElementById("addButton").disabled = false;
+                    }
+                    removeCell.appendChild(removeButton);
+                    newRow.appendChild(removeCell);
+                    document.getElementById("dataTable").getElementsByTagName("tbody")[0].appendChild(newRow);
+                    document.getElementById("addButton").disabled = counter >= numRows;
+                } else {
+                    alert("Please enter valid data for all fields.");
+                }
+            }
+        }
+
+        function removeRow(button) {
+            var row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            counter--;
+        }
+
+        function calculateStatistics() {
+            if (counter < expectedRows) {
+                alert("Please enter data for all " + expectedRows + " rows before forecasting.");
+                return;
+            }
+            var temperatureValues = [];
+            var precipitationValues = [];
+            var humidityValues = [];
+            var windSpeedValues = [];
+            var table = document.getElementById("dataTable");
+            var rows = table.getElementsByTagName("tr");
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+                var temperature = parseFloat(cells[1].textContent);
+                var precipitation = cells[2].textContent === "Yes" ? 1 : 0;
+                var humidity = parseFloat(cells[3].textContent);
+                var windSpeed = parseFloat(cells[4].textContent);
+                if (!isNaN(temperature)) {temperatureValues.push(temperature);}
+                precipitationValues.push(precipitation);
+                if (!isNaN(humidity)) {humidityValues.push(humidity);}
+                if (!isNaN(windSpeed)) {windSpeedValues.push(windSpeed);}
+            }
+            if (temperatureValues.length > 0) {
+                var temperatureMean = calculateMean(temperatureValues);
+                document.getElementById("temperatureResult").innerHTML = "<strong>Mean Temperature:</strong> " + temperatureMean.toFixed(2) + "°C";
+            } else {document.getElementById("temperatureResult").innerHTML = "<strong>No temperature data available.</strong>";}
+            if (precipitationValues.length > 0) {
+                var precipitationMean = calculateMean(precipitationValues);
+                document.getElementById("precipitationResult").innerHTML = "<strong>Mean Precipitation:</strong> " + (precipitationMean * 100).toFixed(2) + "% Yes";
+            } else {document.getElementById("precipitationResult").innerHTML = "<strong>No precipitation data available.</strong>";}
+            if (humidityValues.length > 0) {
+                var humidityMean = calculateMean(humidityValues);
+                document.getElementById("humidityResult").innerHTML = "<strong>Mean Humidity:</strong> " + humidityMean.toFixed(2) + "%";
+            } else {document.getElementById("humidityResult").innerHTML = "<strong>No humidity data available.</strong>";}
+            if (windSpeedValues.length > 0) {
+                var windSpeedMean = calculateMean(windSpeedValues);
+                document.getElementById("windSpeedResult").innerHTML = "<strong>Mean Wind Speed:</strong> " + windSpeedMean.toFixed(2) + "kmph";
+            } else {document.getElementById("windSpeedResult").innerHTML = "<strong>No wind speed data available.</strong>";}
+        }
+
+        function calculateMean(numbers) {
+            var total = numbers.reduce((acc, cur) => acc + cur, 0);
+            return total / numbers.length;
+        }
+        function plotGraph() {
+            if (counter < expectedRows) {
+                alert("Insufficient data: " + counter + "/" + expectedRows + " rows filled. Please complete all rows before plotting.");
+                return;
+            }
+            var table = document.getElementById("dataTable");
+            var rows = table.getElementsByTagName("tr");
+            var xArray_humidity = [1];
+            var yArray_humidity = [];
+            var yArray_temp = [];
+            var yArray_windspeed = [];
+            var yArray_prec = [];
+            for (var i = 1; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName("td");
+                if (cells.length >= 2) {
+                    var temperature = parseFloat(cells[1].textContent);
+                    var precipitation = cells[2].textContent === "Yes" ? 1 : 0;
+                    var windspeed = parseFloat(cells[4].textContent);
+                    var humidity = parseFloat(cells[3].textContent);
+                    xArray_humidity.push(i + 1);
+                    yArray_humidity.push(humidity);
+                    yArray_temp.push(temperature);
+                    yArray_windspeed.push(windspeed);
+                    yArray_prec.push(precipitation);
+                }
+            }
+            var mean_temp = parseFloat(document.getElementById("temperatureResult").textContent.split(":")[1].trim().slice(0, -2));
+            var mean_humid = parseFloat(document.getElementById("humidityResult").textContent.split(":")[1].trim().slice(0, -1));
+            var mean_wind = parseFloat(document.getElementById("windSpeedResult").textContent.split(":")[1].trim().slice(0, -4));
+            var mean_prec = parseFloat(document.getElementById("precipitationResult").textContent.split(":")[1].trim().slice(0, -4));
+            yArray_humidity.push(mean_humid);
+            yArray_temp.push(mean_temp);
+            yArray_windspeed.push(mean_wind);
+            yArray_prec.push(mean_prec);
+            const data = [
+                { x: xArray_humidity, y: yArray_humidity, mode: "lines+markers", line: { color: 'blue' }, marker: { color: 'red' }, name: "Humidity" },
+                { x: xArray_humidity, y: yArray_temp, mode: "lines+markers", line: { color: 'green' }, marker: { color: 'red' }, name: "Temperature" },
+                { x: xArray_humidity, y: yArray_prec, mode: "lines+markers", line: { color: 'yellow' }, marker: { color: 'red' }, name: "Precipitation" },
+                { x: xArray_humidity, y: yArray_windspeed, mode: "lines+markers", line: { color: 'violet' }, marker: { color: 'red' }, name: "Wind Speed" }
+            ];
+            const layout = { xaxis: { title: "DAYS" }, yaxis: { title: "PARAMETER-VALUE" }, title: "Graph", autosize: true, plot_bgcolor: 'lightgrey', paper_bgcolor: 'lightblue' };
+            Plotly.newPlot("myPlot", data, layout);
+            document.getElementById("graphContainer").style.display = "block";
+        }
+    </script>
+</body>
+</html>

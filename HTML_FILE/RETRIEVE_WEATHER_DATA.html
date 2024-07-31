@@ -1,0 +1,11 @@
+<html><head><title>RETRIEVE_WEATHER_DATA</title><style>table {border-collapse: collapse;width:100%;}
+th, td {border: 1px solid black;padding: 8px;text-align:center;color:yellow;}body{background-image: url('CLEAR_SKY.jpg');background-repeat: no-repeat;background-attachment: fixed;background-size: cover;}</style></head><body>&emsp;<a style="text-align:center;FONT-SIZE:15px;" href="HOME.html">HOME</a><h1 style='text-align:center;background-color:yellow;color:green'>WEATHER_DATA</h1><form>ENTER MONTH NUMBER: <input type="text" id="rowIndex" name="rowIndex"><input type="button" value="Display Row" onclick="displayRow()"></form><div id="output"></div><script>function displayRow() {var rowIndex = document.getElementById('rowIndex').value;var rows = `Date, Max Temperature(°C), Min Temperature(°C), Precipitation(mm), Rain Sum(mm), Precipitation Hours
+2024-03-28, 38.7, 25.6, 0.0, 0.0, 0.0
+2024-03-29, 38.0, 26.1, 0.0, 0.0, 0.0
+2024-03-30, 38.9, 26.4, 1.2, 0.0, 1.0
+2024-03-31, 39.5, 26.4, 0.5, 0.0, 3.0
+2024-04-01, 41.1, 26.2, 0.0, 0.0, 0.0
+2024-04-02, 37.7, 26.6, 0.0, 0.0, 0.0
+2024-04-03, 37.5, 26.5, 0.0, 0.0, 0.0
+2024-04-04, 37.1, 26.7, 0.0, 0.0, 0.0
+`.split('\n');var rowData = rows[rowIndex].split(',');var table = '<table border="1"><tr>';rowData.forEach(function(cell) {table += '<td>' + cell + '</td>';});table += '</tr></table>';document.getElementById('output').innerHTML = table;}</script></body></html>

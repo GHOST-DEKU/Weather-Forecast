@@ -1,0 +1,74 @@
+<html>
+<head>
+<title>FEEDBACK</title>
+<style>
+body {background-image: url('CLEAR_SKY.jpg');background-repeat: no-repeat;background-attachment: fixed;background-size: cover;}
+</style>
+</head>
+<body>
+<p>
+&emsp;<a style="text-align:center;FONT-SIZE:15px;" href="HOME.html">HOME</a>
+</p>
+<h1 style="text-align:center;background-color:yellow;color:green">FEEDBACK</h1>
+<form id="feedbackForm" onsubmit="submitFeedback(event);">
+<p><b>1) RATE THE OVERALL FUNCTIONALITY AND USABILITY OF THE WEATHER API
+: <input type="radio" name="1) RATE THE OVERALL FUNCTIONALITY AND USABILITY OF THE WEATHER API
+" value="Excellent">Excellent<input type="radio" name="1) RATE THE OVERALL FUNCTIONALITY AND USABILITY OF THE WEATHER API
+" value="Good">Good<input type="radio" name="1) RATE THE OVERALL FUNCTIONALITY AND USABILITY OF THE WEATHER API
+" value="Fair">Fair<input type="radio" name="1) RATE THE OVERALL FUNCTIONALITY AND USABILITY OF THE WEATHER API
+" value="Poor">Poor</b></p>
+<p><b>2) RATE THE API ONTHE BASIS OF ACCURACY AND RELIABILITY
+: <input type="radio" name="2) RATE THE API ONTHE BASIS OF ACCURACY AND RELIABILITY
+" value="Excellent">Excellent<input type="radio" name="2) RATE THE API ONTHE BASIS OF ACCURACY AND RELIABILITY
+" value="Good">Good<input type="radio" name="2) RATE THE API ONTHE BASIS OF ACCURACY AND RELIABILITY
+" value="Fair">Fair<input type="radio" name="2) RATE THE API ONTHE BASIS OF ACCURACY AND RELIABILITY
+" value="Poor">Poor</b></p>
+<p><b>3) DID YOU ENCOUNTER ANY UNEXPECTED BEHAVIOUR OR BUGS WHILE USING THE API?
+: <input type="radio" name="3) DID YOU ENCOUNTER ANY UNEXPECTED BEHAVIOUR OR BUGS WHILE USING THE API?
+" value="Yes">Yes<input type="radio" name="3) DID YOU ENCOUNTER ANY UNEXPECTED BEHAVIOUR OR BUGS WHILE USING THE API?
+" value="No">No</b></p>
+<p><b>4) RATE THE API FOR ERROR AND EXPECTION HANDLING RELATED TO DATA STORAGE AND PROCESSING?
+: <input type="radio" name="4) RATE THE API FOR ERROR AND EXPECTION HANDLING RELATED TO DATA STORAGE AND PROCESSING?
+" value="Excellent">Excellent<input type="radio" name="4) RATE THE API FOR ERROR AND EXPECTION HANDLING RELATED TO DATA STORAGE AND PROCESSING?
+" value="Good">Good<input type="radio" name="4) RATE THE API FOR ERROR AND EXPECTION HANDLING RELATED TO DATA STORAGE AND PROCESSING?
+" value="Fair">Fair<input type="radio" name="4) RATE THE API FOR ERROR AND EXPECTION HANDLING RELATED TO DATA STORAGE AND PROCESSING?
+" value="Poor">Poor</b></p>
+<p><b>5) HOW WOULD YOU COMPARE THE WEATHER API TO THE OTHER SIMILAR APIs AVAILABLE IN THE MARKET?
+: <input type="text" name="5) HOW WOULD YOU COMPARE THE WEATHER API TO THE OTHER SIMILAR APIs AVAILABLE IN THE MARKET?
+"></b></p>
+<p><b>6) RATE THE API ON THE BASIS OF VARIETY AND GRANULARITY OF WEATHER DATA PROVIDED BY THE API
+: <input type="radio" name="6) RATE THE API ON THE BASIS OF VARIETY AND GRANULARITY OF WEATHER DATA PROVIDED BY THE API
+" value="Excellent">Excellent<input type="radio" name="6) RATE THE API ON THE BASIS OF VARIETY AND GRANULARITY OF WEATHER DATA PROVIDED BY THE API
+" value="Good">Good<input type="radio" name="6) RATE THE API ON THE BASIS OF VARIETY AND GRANULARITY OF WEATHER DATA PROVIDED BY THE API
+" value="Fair">Fair<input type="radio" name="6) RATE THE API ON THE BASIS OF VARIETY AND GRANULARITY OF WEATHER DATA PROVIDED BY THE API
+" value="Poor">Poor</b></p>
+<p><b>7) WRITE YOUR OPINION ON USE OF THE API IN REAL-TIME PROJECTS
+: <input type="text" name="7) WRITE YOUR OPINION ON USE OF THE API IN REAL-TIME PROJECTS
+"></b></p>
+<p><b>8) WHAT ADDITIONAL FEATURES OR IMPROVEMENTS WOULD YOU LIKE TO IMPLEMENT IN FUTURE VERSION OF THE WEATHER API?
+: <input type="text" name="8) WHAT ADDITIONAL FEATURES OR IMPROVEMENTS WOULD YOU LIKE TO IMPLEMENT IN FUTURE VERSION OF THE WEATHER API?
+"></b></p>
+<p><b>9) WOULD YOU RECOMMEND THIS WEATHER API TO OTHERS FOR THEIR PROJECTS?
+: <input type="radio" name="9) WOULD YOU RECOMMEND THIS WEATHER API TO OTHERS FOR THEIR PROJECTS?
+" value="Yes">Yes<input type="radio" name="9) WOULD YOU RECOMMEND THIS WEATHER API TO OTHERS FOR THEIR PROJECTS?
+" value="No">No</b></p>
+<p><b>10) SUGGESTIONS(IF ANY) TO IMPROVE THE DIFFICULTIES AND LIMITATIONS WHILE USING THE API
+: <input type="text" name="10) SUGGESTIONS(IF ANY) TO IMPROVE THE DIFFICULTIES AND LIMITATIONS WHILE USING THE API
+"></b></p>
+<input type="submit" value="Submit">
+</form>
+<script>
+function submitFeedback(event) {
+event.preventDefault();
+var form = document.getElementById('feedbackForm');
+var formData = new FormData(form);
+var feedback = '';
+for (var pair of formData.entries()) {
+feedback += pair[0] + ': ' + pair[1] + '<br>';
+}
+document.getElementById('feedbackDisplay').innerHTML = feedback;
+}
+</script>
+<div id="feedbackDisplay"></div>
+</body>
+</html>

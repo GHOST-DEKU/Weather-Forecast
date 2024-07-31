@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WEATHER FORCASTING</title>
+<style>
+body{
+background-image: url('CLEAR_SKY.jpg');
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-size: cover;}
+.footer-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.footer-text {
+    text-align: center;
+    font-size: 15px;
+    color: yellow;
+}
+</style>
+</head>
+<body>
+<h1 style="text-align:center;background-color:yellow;color:green;">SKY-CAST:JAVA POWERED WEATHER PREDICTION</h1>
+<p>&emsp;&emsp;&emsp;<a style="text-align:center;FONT-SIZE:15px;" href="HOME.html">HOME</a>&emsp;&emsp;&emsp;|&emsp;&emsp;&emsp;<a style="text-align:center;FONT-SIZE:15px;" href="ABOUT_US.html">ABOUT US</a>&emsp;&emsp;&emsp;|&emsp;&emsp;&emsp;<a style="text-align:center;FONT-SIZE:15px;"href="table_structure.html">WEATHER DATA</a>&emsp;&emsp;&emsp;|&emsp;&emsp;&emsp;<a style="text-align:center;FONT-SIZE:15px;"href="IMAGES.html">IMAGES</a>&emsp;&emsp;&emsp;|&emsp;&emsp;&emsp;<a style="text-align:center;FONT SIZE:15px; "href="VIDEOS.html">VIDEOS</a>&emsp;&emsp;&emsp;|&emsp;&emsp;&emsp;<a style="text-align:center;FONT-SIZE:15px;"href="FORECAST.html">FORCAST TOOL</a>&emsp;&emsp;&emsp;|&emsp;&emsp;&emsp;<a style=text-align:center;FONT-SIZE:15px;" href="FEEDBACK.html">FEEDBACK</a></p>
+<div class="footer-container">
+    <div class="footer-text">
+        <p><b><u>SUBMITTED BY</u></b><br>
+	<p></p>
+        BISMAYA KANTA DASH (22054126)<br>
+        VAIBHAV PODDER (2205601)<br>
+        UDITA MONANI (2205600)<br>
+        PRABHU PRASAD PATNAYAK (22053795)</p>
+    </div>
+</div>
+</body>
+</html>

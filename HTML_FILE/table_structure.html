@@ -1,0 +1,151 @@
+<html>
+<head>
+<title>WEATHER REPORT</title>
+<style>
+table {border-collapse: collapse;width:100%;}
+th, td {border: 1px solid black;padding: 8px;text-align:center;color:yellow;}
+body {background-image: url('CLEAR_SKY.jpg');background-repeat: no-repeat;background-attachment: fixed;background-size: cover;}
+#weather-table, #footer {display: none;}
+</style>
+<script>
+function displayRow() 
+{var rowIndex = document.getElementById('rowIndex').value;var rows = `Month, Temperature(°C), Precipitation(mm), Humidity(%), Wind Speed(kmph)
+January, 21.0, 12.9, 73, 5.0
+February, 25.7, 20.4, 66, 5.3
+March, 30.3, 42.4, 66, 6.1
+April, 32.6, 48.8, 70, 7.2
+May, 34.8, 124.5, 76, 7.8
+June, 33.1, 259.3, 84, 7.6
+July, 31.4, 334.4, 85, 7.0
+August, 30.8, 303.6, 84, 6.6
+September, 29.8, 270.0, 82, 6.0
+October, 27.8, 160.0, 79, 5.7
+November, 24.4, 25.4, 73, 4.7
+December, 22.3, 6.6, 67, 4.3
+`.split('\n');var rowData = rows[rowIndex].split(',');
+var table = '<table border="1"><tr>';
+rowData.forEach(function(cell) {table += '<td>' + cell + '</td>';});table += '</tr></table>';
+document.getElementById('output').innerHTML = table;
+}
+function displayRow1() {
+var outputDiv = document.getElementById('output');
+if (outputDiv.innerHTML !== '') {
+outputDiv.innerHTML = '';
+} else {
+var rows = `Month, Temperature(°C), Precipitation(mm), Humidity(%), Wind Speed(kmph)
+January, 21.0, 12.9, 73, 5.0
+February, 25.7, 20.4, 66, 5.3
+March, 30.3, 42.4, 66, 6.1
+April, 32.6, 48.8, 70, 7.2
+May, 34.8, 124.5, 76, 7.8
+June, 33.1, 259.3, 84, 7.6
+July, 31.4, 334.4, 85, 7.0
+August, 30.8, 303.6, 84, 6.6
+September, 29.8, 270.0, 82, 6.0
+October, 27.8, 160.0, 79, 5.7
+November, 24.4, 25.4, 73, 4.7
+December, 22.3, 6.6, 67, 4.3
+`.split('\n');
+var table = '<table border="1"><tr>';
+rows.forEach(function (rowData) {
+var cells = rowData.split(',');
+cells.forEach(function (cell) {
+table += '<td>' + cell + '</td>';
+});
+table += '</tr><tr>';
+});
+table += '</tr></table>';
+outputDiv.innerHTML = table;
+}
+}</script>
+</head>
+<body>
+<p>
+&emsp;<a style="text-align:center;FONT-SIZE:15px;" href="HOME.html">HOME</a>
+&emsp;&emsp;&emsp;|&emsp;&emsp;&emsp;<a style="text-align:center;FONT-SIZE:15px;" href="FORECAST.html">FORECAST TOOL</a>
+</p>
+<h1 style="text-align:center;background-color:yellow;color:green">WEATHER DATA</h1>
+<p style="color:red;"><b>*CURRENT DATE DATA*</b></p>
+<table><tr>
+<td style="text-align:center;">Date</td>
+<td style="text-align:center;"> Max Temperature(°C)</td>
+<td style="text-align:center;"> Min Temperature(°C)</td>
+<td style="text-align:center;"> Precipitation(mm)</td>
+<td style="text-align:center;"> Rain Sum(mm)</td>
+<td style="text-align:center;"> Precipitation Hours</td>
+</tr>
+<tr>
+<td style="text-align:center;">2024-03-28</td>
+<td style="text-align:center;"> 38.7</td>
+<td style="text-align:center;"> 25.6</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+</tr>
+<tr>
+<td style="text-align:center;">2024-03-29</td>
+<td style="text-align:center;"> 38.0</td>
+<td style="text-align:center;"> 26.1</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+</tr>
+<tr>
+<td style="text-align:center;">2024-03-30</td>
+<td style="text-align:center;"> 38.9</td>
+<td style="text-align:center;"> 26.4</td>
+<td style="text-align:center;"> 1.2</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 1.0</td>
+</tr>
+<tr>
+<td style="text-align:center;">2024-03-31</td>
+<td style="text-align:center;"> 39.5</td>
+<td style="text-align:center;"> 26.4</td>
+<td style="text-align:center;"> 0.5</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 3.0</td>
+</tr>
+<tr>
+<td style="text-align:center;">2024-04-01</td>
+<td style="text-align:center;"> 41.1</td>
+<td style="text-align:center;"> 26.2</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+</tr>
+<tr>
+<td style="text-align:center;">2024-04-02</td>
+<td style="text-align:center;"> 37.7</td>
+<td style="text-align:center;"> 26.6</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+</tr>
+<tr>
+<td style="text-align:center;">2024-04-03</td>
+<td style="text-align:center;"> 37.5</td>
+<td style="text-align:center;"> 26.5</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+</tr>
+<tr>
+<td style="text-align:center;">2024-04-04</td>
+<td style="text-align:center;"> 37.1</td>
+<td style="text-align:center;"> 26.7</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+<td style="text-align:center;"> 0.0</td>
+</tr>
+</table><br><p style="color:red;"><b>*FOR DISPLAYING WEATHER DATA FOR ALL MONTH CLICK ON DISPLAY WEATHER.*</b></p>
+<form><input type="button" value="DISPLAY MONTHLY WEATHER" onclick="displayRow1()"></form>
+<div id="output1"></div><p style="color:red;"><b>*FOR DISPLAYING WEATHER DATA OF A SPECIFIC MONTH-ENTER THE MONTH IN THE TEXT BOX AND CLICK ON DISPLAY WEATHER.*</b></p>
+<form>ENTER MONTH NUMBER <input type="text" id="rowIndex" name="rowIndex"> <input type="button" value="DISPLAY WEATHER" onclick="displayRow()"></form><br><br>
+<div id="output"></div>
+<footer id="footer">
+<p style="text-align:center;font-size:15px;color: red"><b>NOTE:THIS DATA IS A ABSOLUTE DATA USED TO COMPARE THE CHANGES IN WEATHER(MONTHLY DATA).</b>
+</p>
+</footer>
+</body>
+</html>

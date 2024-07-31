@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Checker</title>
+</head>
+<body>
+    <h1>Check Weather Conditions</h1>
+    <form id="inputForm">
+        Enter Month: <input type="text" id="month" name="month"><br>
+        <input type="button" value="Check" onclick="checkWeather()">
+    </form>
+
+    <div id="result" style="display:none;">
+        <h2>Weather Conditions for <span id="outputMonth"></span>:</h2>
+        <p id="outputTemperature"></p>
+        <p id="outputRainfall"></p>
+        <p id="outputHumidity"></p>
+        <p id="outputWindSpeed"></p>
+    </div>
+
+    <script>
+        function checkWeather() {
+            var month = document.getElementById('month').value.trim();
+
+            fetch('weather_data.csv')
+                .then(response => response.text())
+                .then(data => {
+                    var lines = data.split('\n');
+                    var headers = lines[0].split(',');
+                    var monthIndex = headers.indexOf('Month');
+                    var outputMonth = document.getElementById('outputMonth');
+                    var outputTemperature = document.getElementById('outputTemperature');
+                    var outputRainfall = document.getElementById('outputRainfall');
+                    var outputHumidity = document.getElementById('outputHumidity');
+                    var outputWindSpeed = document.getElementById('outputWindSpeed');
+                    var resultDiv = document.getElementById('result');
+
+                    for (var i = 1; i < lines.length; i++) {
+                        var rowData = lines[i].split(',');
+                        if (rowData[monthIndex].trim().toLowerCase() === month) {
+                            outputMonth.textContent = rowData[monthIndex];
+                            outputTemperature.textContent = "Temperature: " + rowData[1] + "°C";
+                            outputRainfall.textContent = "Rainfall: " + rowData[2] + "mm";
+                            outputHumidity.textContent = "Humidity: " + rowData[3] + "%";
+                            outputWindSpeed.textContent = "Wind Speed: " + rowData[4] + "m/s";
+                            resultDiv.style.display = 'block';
+                            return;
+                        }
+                    }
+                    alert("Data not found for the entered month.");
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                    alert('Error fetching data. Please try again.');
+                });
+        }
+    </script>
+</body>
+</html>
